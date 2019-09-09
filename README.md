@@ -35,8 +35,7 @@ repositories {
 dependencies {
     (...)
     implementation (name:'sense-sdk-release', ext:'aar')
-    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
-    implementation 'org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly'
+    implementation 'org.tensorflow:tensorflow-lite:1.14.0'
     (...)
 }
 ```
