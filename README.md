@@ -44,8 +44,8 @@ In the `AndroidManifest.xml` file, add the following:
 
 ```
 <uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.RECORD_AUDIO"/> // For audio stream
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> // For audio file
+<uses-permission android:name="android.permission.RECORD_AUDIO"/> <!-- For audio stream -->
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- For audio file -->
 ```
 
 # How to use Sense SDK Android
