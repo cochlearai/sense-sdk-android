@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> displayedLabels = new ArrayList<>(40);
     final static String displayed = "displayed_labels";
     private boolean[] checked_list;
+
+    private final String sdkKey = "ENTER YOUR SDK KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,43 +83,35 @@ public class MainActivity extends AppCompatActivity {
 
             scrollView.addView(tv, i);
             requestPermission();
-
         }
-
-
-
 
         Button btDone = (Button)findViewById(R.id.done);
         btDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
-
-                Intent intent=new Intent(MainActivity.this, EventActivity.class);
+                Intent intent = new Intent(MainActivity.this, EventActivity.class);
                 intent.putExtra("checked_list", checked_list);
                 intent.putStringArrayListExtra(displayed, displayedLabels);
                 startActivity(intent);
-
             }
         });
+
+        new SenseSDKTask(getApplicationContext()).execute(sdkKey);
     }
 
     private boolean requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int PERMISSION_ALL = 1;
-            String[] PERMISSIONS = {
-                    android.Manifest.permission.INTERNET,
-                    android.Manifest.permission.RECORD_AUDIO,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            };
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {
+                android.Manifest.permission.INTERNET,
+                android.Manifest.permission.RECORD_AUDIO,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        };
 
-            if (!hasPermissions(this, PERMISSIONS)) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
-                return false;
-            }
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+            return false;
         }
+
         return true;
     }
 
@@ -131,4 +126,27 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void onDestroy() {
+        super.onDestroy();
+        SenseSDKWrapper.getInstance().stop();
+    }
+
+    private class SenseSDKTask extends AsyncTask<String, Void, Void> {
+        private Context context = null;
+        SenseSDKTask(Context context){
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            SenseSDKWrapper sense = SenseSDKWrapper.getInstance();
+            sense.init(this.context, sdkKey);
+            return null;
+        }
+    }
 }

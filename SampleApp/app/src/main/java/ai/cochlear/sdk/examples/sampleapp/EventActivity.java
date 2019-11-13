@@ -7,6 +7,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -35,7 +36,6 @@ public class EventActivity extends AppCompatActivity {
     AudioRecord record;
     Model model;
 
-
     // UI elements.
     private Button backButton;
     private ListView labelsListView;
@@ -48,21 +48,17 @@ public class EventActivity extends AppCompatActivity {
     private int[] labelIndexMapper;
     String tag = null;
 
-    private final String sdkKey = "ENTER YOUR SDK KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        Cochl cochl = Cochl.getInstance();
-        cochl.init(getApplicationContext(), sdkKey);
 
         labelsListView = (ListView) findViewById(R.id.list_view2);
 
         Intent intent=new Intent(this.getIntent());
         checked_list = intent.getBooleanArrayExtra("checked_list");
         displayedLabels = intent.getStringArrayListExtra(displayed);
-        System.out.println(displayedLabels.get(0) + " "+ displayedLabels.get(1));
 
         backButton = (Button)findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -83,28 +79,41 @@ public class EventActivity extends AppCompatActivity {
             }
         }
 
-
         // Build a list view based on these labels.
         ArrayAdapter<String> arrayAdapter =
                 new ArrayAdapter<String>(this, R.layout.list_text_item, chosen);
         labelsListView.setAdapter(arrayAdapter);
 
+        // Load the Sense SDK model.
+        model = SenseSDKWrapper.getInstance().getModel();
 
-        // Load the TensorFlow model.
-        model = cochl.getInstance().getModel("event");
+        // Wait for getting model
+        while (model == null) {
+            try {
+                Thread.sleep(500);
+                model = SenseSDKWrapper.getInstance().getModel();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         // Start the recording and recognition threads.
         startRecording();
     }
 
     public void startRecording() {
-        isRecording = true;
-        record = new AudioRecord(MediaRecorder.AudioSource.DEFAULT,
-                SAMPLE_RATE,
-                CHANNEL_CONFIG,
-                AUDIO_FORMAT,
-                RECORD_BUF_SIZE);
-        model.addInput(record);
+        try {
+            model.resume();
+            isRecording = true;
+        } catch (CochlException e) {
+            isRecording = true;
+            record = new AudioRecord(MediaRecorder.AudioSource.DEFAULT,
+                    SAMPLE_RATE,
+                    CHANNEL_CONFIG,
+                    AUDIO_FORMAT,
+                    RECORD_BUF_SIZE);
+            model.addInput(record);
+        }
 
         // Predict audio stream
         model.predict(new Model.OnPredictListener() {
@@ -171,17 +180,10 @@ public class EventActivity extends AppCompatActivity {
                 Log.d(LOG_TAG, error.toString());
             }
         });
-        for(int i= 0; i<chosen.size(); i++ ){
-            System.out.println(chosen.get(i));
-        }
-
-
-
-
     }
+
     public void stopRecording() {
         isRecording = false;
-        model.stopPredict();
-
+        model.pause();
     }
 }
