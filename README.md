@@ -237,6 +237,8 @@ model.predict(new Model.OnPredictListener() {
 
 * Predict the audio file
 
+>**LIMITATIONS**: Audio file length must be at least 1 second.
+
 ```java
 import ai.cochlear.sdk.core.Cochl;
 import ai.cochlear.sdk.models.Model;
@@ -293,6 +295,32 @@ model.predict(new Model.OnPredictListener() {
     }
 });
 ```
+
+## Pause & Resume (Stream only)
+
+During the stream type prediction, you can pause and resume the inference as needed.
+
+* Pause & Resume
+
+```java
+    pauseBtn = findViewById(R.id.pauseBtn);
+    pauseBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            model.pause();
+        }
+    });
+
+    resumeBtn = findViewById(R.id.resumeBtn);
+    resumeBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            model.resume();
+        }
+    });
+```
+
+
 ## Stop Prediction
 
 While Sense SDK is running, several threads would be generated for stream recording, file decoding, or audio analysis. To avoid the risk that these threads will remain after the app has terminated, `stopPredict()` method have to be called before App termination.
@@ -369,6 +397,14 @@ Set the callback function that is called after prediction is done and start the 
 * *public void stopPredict()*
 
 Release resources including Sense SDK internal threads
+
+* *public void pause()*
+
+Pause the prediction for the audio stream
+
+* *public void resume()*
+
+Resume the prediction for the audio stream
 
 ### CochlException
 
