@@ -37,5 +37,4 @@ dependencies {
 
     // For Cochl Sense SDK
     implementation (name: 'sense-sdk-release', ext:'aar')
-    implementation 'org.tensorflow:tensorflow-lite:1.14.0'
 }
