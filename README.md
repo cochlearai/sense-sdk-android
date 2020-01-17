@@ -4,7 +4,7 @@
 
 In order to run Sense SDK, you would require SDK key. Please contact us by e-mail (support@cochlear.ai) to get your key, which is mandatory to use Sense SDK. Sense SDK for Android supports Android API 26 (Version 8.0 “Oreo”), or later.
 
-  * __Supported Sound Events__
+  * __Sound Events__
 
 |   |     |     |   |
 |:---:|:---:|:---:|:---:|
