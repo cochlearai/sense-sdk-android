@@ -4,6 +4,21 @@
 
 In order to run Sense SDK, you would require SDK key. Please contact us by e-mail (support@cochlear.ai) to get your key, which is mandatory to use Sense SDK. Sense SDK for Android supports Android API 26 (Version 8.0 “Oreo”), or later.
 
+  * __Supported Sound Events__
+
+|   |     |     |   |
+|:---:|:---:|:---:|:---:|
+| Baby_cry | Bicycle_bell | Birds | Burping |
+| Cat_meow | Civil_defense_siren | Clap | Cough |
+| Crowd_applause | Crowd_scream | Dog_bark | Electric_shaver |
+| Explosion | Fart | Finger_snap | Fire_smoke_alarm |
+| Glassbreak | Gunshot | Hiccup | Keyboard_mouse |
+| Knock | Laughter | Mosquito | Scream |
+| Sigh | Sneeze | Snoring | Toilet_flush |
+| Vehicle_horn | Vehicle_siren | Water_liquid | Whisper |
+| Whistling | Wind_noise | | |
+
+
 ## Android Studio Setup
 
 To use Sense SDK in your project, add it as a build dependency and import the SDK as follows:
@@ -35,7 +50,6 @@ repositories {
 dependencies {
     (...)
     implementation (name:'sense-sdk-release', ext:'aar')
-    implementation 'org.tensorflow:tensorflow-lite:1.14.0'
     (...)
 }
 ```
@@ -44,8 +58,8 @@ In the `AndroidManifest.xml` file, add the following:
 
 ```
 <uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.RECORD_AUDIO"/> <!-- For audio stream -->
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- For audio file -->
+<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 
 # How to use Sense SDK Android
