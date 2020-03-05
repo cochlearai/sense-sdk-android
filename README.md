@@ -4,20 +4,17 @@
 
 In order to run Sense SDK, you would require SDK key. Please contact us by e-mail (support@cochlear.ai) to get your key, which is mandatory to use Sense SDK. Sense SDK for Android supports Android API 26 (Version 8.0 “Oreo”), or later.
 
-  * __Sound Events__ (34 classes)
+  * __Emergency__ Sound Detection
 
-|   |     |     |   |
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+| Fire_smoke_alarm | Glassbreak | Gunshot_explosion | Scream | Siren |
+
+  * __Human Interaction__ Sound Detection
+
+| | | | |
 |:---:|:---:|:---:|:---:|
-| Baby_cry | Bicycle_bell | Birds | Burping |
-| Cat_meow | Civil_defense_siren | Clap | Cough |
-| Crowd_applause | Crowd_scream | Dog_bark | Electric_shaver |
-| Explosion | Fart | Finger_snap | Fire_smoke_alarm |
-| Glassbreak | Gunshot | Hiccup | Keyboard_mouse |
-| Knock | Laughter | Mosquito | Scream |
-| Sigh | Sneeze | Snoring | Toilet_flush |
-| Vehicle_horn | Vehicle_siren | Water_liquid | Whisper |
-| Whistling | Wind_noise | | |
-
+| Finger_snap | Knock | Whisper | Whistling |
 
 ## Android Studio Setup
 
@@ -87,15 +84,15 @@ public class MainActivity extends AppCompatActivity {
 
 ## Sense Models
 
-Sense SDK has its own pre-built deep learning models to predict various acoustic events. The below sample code shows how to load the event model and make a prediction.
+Sense SDK has its own pre-built deep learning models to predict various acoustic events. The below sample code shows how to load the `human-interaction` model and make a prediction.
 
 ```java
 import ai.cochlear.sdk.models.Model;
 
 (...)
 
-// Get the event model
-Model model = Cochl.getInstance().getModel("event");
+// Get the human interaction model
+Model model = Cochl.getInstance().getModel("human-interaction");
 ```
 
 ## Audio Input
@@ -231,8 +228,8 @@ Cochl cochl = Cochl.getInstance();
 cochl.init(getApplicationContext(), sdkKey);
 
 // Use the model you want to predict on. The model in the sample code
-// below is our event model.
-final Model model = cochl.getModel("event");
+// below is our human interaction model.
+final Model model = cochl.getModel("human-interaction");
 model.addInput(record);
 
 // Set the callback function that is called after prediction is done
@@ -269,8 +266,8 @@ Cochl cochl = Cochl.getInstance();
 cochl.init(getApplicationContext(), sdkKey);
 
 // Use the model you want to predict on. The model in the sample code
-// below is our event model.
-final Model model = cochl.getModel("event");
+// below is our human interaction model.
+final Model model = cochl.getModel("human-interaction");
 
 // Storage which is in the audio file
 File sdcard = Environment.getExternalStorageDirectory();
