@@ -40,7 +40,7 @@ public class SenseSDKWrapper {
     public void init(Context context, String sdkKey) {
         cochl = Cochl.getInstance();
         cochl.init(context, sdkKey);
-        model = cochl.getModel("event");
+        model = cochl.getModel("emergency");
     }
 
     public void stop() {
