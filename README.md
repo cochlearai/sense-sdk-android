@@ -21,7 +21,7 @@ In order to run Sense SDK, you would require SDK key. Please contact us by e-mai
 To use Sense SDK in your project, add it as a build dependency and import the SDK as follows:
 
   1. Create `app/libs` library directory if `app/libs` directory doesn't exist in your android App project
-  2. Copy `sense-sdk-release.aar` file to `app/libs` directory
+  2. Copy `sense-sdk-0.4.1.aar` file to `app/libs` directory
   3. Edit `app/build.gradle` file
   4. Edit `app/src/main/AndroidManifest.xml` file
   5. Use Sense SDK in your App source code
@@ -46,7 +46,7 @@ repositories {
 
 dependencies {
     (...)
-    implementation (name:'sense-sdk-release', ext:'aar')
+    implementation (name:'sense-sdk-0.4.1', ext:'aar')
     (...)
 }
 ```
