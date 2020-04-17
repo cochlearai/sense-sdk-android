@@ -6,15 +6,15 @@ In order to run Sense SDK, you would require SDK key. Please contact us by e-mai
 
   * __Emergency__ Sound Detection
 
-| | | | | |
-|:---:|:---:|:---:|:---:|:---:|
-| Fire_smoke_alarm | Glassbreak | Gunshot_explosion | Scream | Siren |
+| | | | |
+|:---:|:---:|:---:|:---:|
+| Fire_smoke_alarm | Glassbreak | Scream | Siren |
 
   * __Human Interaction__ Sound Detection
 
-| | | | |
-|:---:|:---:|:---:|:---:|
-| Finger_snap | Knock | Whisper | Whistling |
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+| Clap | Finger_snap | Knock | Whisper | Whistling |
 
 ## Android Studio Setup
 
