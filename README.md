@@ -4,24 +4,30 @@
 
 In order to run Sense SDK, you would require SDK key. Please contact us by e-mail (support@cochlear.ai) to get your key, which is mandatory to use Sense SDK. Sense SDK for Android supports Android API 26 (Version 8.0 “Oreo”), or later.
 
-  * __Emergency__ Sound Detection
+## Service
+### Emergency
+Sense SDK Emergency can detect sounds that can be a clue for an emergency occurring in our daily lives. For instance, it can be used for detecting domestic violence, physical altercation, house break-in, or fire alerts.
+- Fire_smoke_alarm
+- Glassbreak
+- Scream
+- Siren
 
-| | | | |
-|:---:|:---:|:---:|:---:|
-| Fire_smoke_alarm | Glassbreak | Scream | Siren |
+### Human-interaction
+Sense SDK Human-interaction allows computers to understand various human-generated sounds that can be used for interaction. For instance, you can make a system that turns on light with a finger snap, or whistling to call a horse in a game.
+- Clap
+- Finger_snap
+- Knock
+- Whisper
+- Whistling
 
-  * __Human Interaction__ Sound Detection
-
-| | | | | |
-|:---:|:---:|:---:|:---:|:---:|
-| Clap | Finger_snap | Knock | Whisper | Whistling |
+> **_Note:_** Clap sounds are well recognized when there is a clean single clap or double clap
 
 ## Android Studio Setup
 
 To use Sense SDK in your project, add it as a build dependency and import the SDK as follows:
 
   1. Create `app/libs` library directory if `app/libs` directory doesn't exist in your android App project
-  2. Copy `sense-sdk-0.4.1.aar` file to `app/libs` directory
+  2. Copy `sense-sdk-<version>.aar` file to `app/libs` directory
   3. Edit `app/build.gradle` file
   4. Edit `app/src/main/AndroidManifest.xml` file
   5. Use Sense SDK in your App source code
@@ -46,7 +52,7 @@ repositories {
 
 dependencies {
     (...)
-    implementation (name:'sense-sdk-0.4.1', ext:'aar')
+    implementation (name:'sense-sdk-<version>', ext:'aar')
     (...)
 }
 ```
@@ -227,7 +233,7 @@ Cochl cochl = Cochl.getInstance();
 // Set the SDK key and initialize SDK
 cochl.init(getApplicationContext(), sdkKey);
 
-// Use the model you want to predict on. The model in the sample code
+// Use the model you want to predict on. The model in this sample code
 // below is our human interaction model.
 final Model model = cochl.getModel("human-interaction");
 model.addInput(record);
@@ -265,7 +271,7 @@ Cochl cochl = Cochl.getInstance();
 // Set the SDK key and initalize SDK
 cochl.init(getApplicationContext(), sdkKey);
 
-// Use the model you want to predict on. The model in the sample code
+// Use the model you want to predict on. The model in this sample code
 // below is our human interaction model.
 final Model model = cochl.getModel("human-interaction");
 
