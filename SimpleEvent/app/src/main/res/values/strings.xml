@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SimpleEvent</string>
+    <string name="service_name">human-interaction</string>
+</resources>
